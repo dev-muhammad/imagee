@@ -7,7 +7,7 @@ def readme():
 
 
 setuptools.setup(name='imagee',
-      version='1.0',
+      version='1.1',
       description='Tool for image optimization',
       long_description=readme(),
       long_description_content_type='text/markdown',

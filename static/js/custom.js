@@ -58,6 +58,7 @@ function uploadFile() {
             text += "<br/><br/>Please, try again :)"
             document.getElementById("uploadedLabel").innerHTML = text
             btn.textContent = "Optimization failed"
+            document.getElementById("optimized").setAttribute('src',"")
             document.getElementById('reset').style.display = "block";
             document.getElementById('optimize').classList.remove("animate")
         }

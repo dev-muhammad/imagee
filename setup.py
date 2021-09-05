@@ -7,11 +7,12 @@ def readme():
 
 
 setuptools.setup(name='imagee',
-      version='0.1',
+      version='1.0',
       description='Tool for image optimization',
       long_description=readme(),
+      long_description_content_type='text/markdown',
       classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3.8',
         'Topic :: Scientific/Engineering :: Image Processing',
@@ -23,5 +24,9 @@ setuptools.setup(name='imagee',
       license='MIT',
       package_dir={"": "src"},
       packages=setuptools.find_packages(where="src"),
+      install_requires=[
+          'markdown',
+          'Pillow',
+      ],
       include_package_data=True,
       zip_safe=False)

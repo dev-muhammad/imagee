@@ -1,18 +1,21 @@
 # Imagee
-
-Simple image optimization tool
-
+## Simple image optimization tool
 Install with pip
 ```
 pip install imagee
 ```
-
 Optimaze image with simple way
-```
-import imagee as imagee
 
+```
+from imagee import Imagee
 image_path = "images/peach.jpg"
 output_path = "images/min_peach.png"
-
-imagee.optimize(image_path, output_path)
+im = Imagee()
+im.read(image_path)
+print(im.format)
+print(im.size)
+im.optimaze()
+print(im.optimized_size)
+print(im.optimization_rate)
+im.save(output_path)
 ```

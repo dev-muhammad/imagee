@@ -1,5 +1,6 @@
 """
 Package name: imagee
+Version: 1.0
 Description: Tool for optimizing image 
 Github repo: https://github/dev-muhammad/imagee
 Author: Muhammad (https://github/dev-muhammad)
@@ -8,6 +9,8 @@ Author: Muhammad (https://github/dev-muhammad)
 import os.path
 import sys
 from PIL import Image
+from io import BytesIO
+import base64
 
 class Imagee():
     """Main class"""
@@ -18,12 +21,14 @@ class Imagee():
     optimized_size = None
     optimization_rate = None
     quality = 85
-    optimized_image = None
+    optimized_image = BytesIO()
+
+    SUPPORTED_FORMATS = {'jpg':"JPEG", 'jpeg':"JPEG", 'png':"PNG"} # other formats not tested
 
     def read(self, path):
         """Read image from path"""
-        self.format = _validateImage(path)
-        self.size = _checkSize(path)
+        self.format = self._validateImage(path)
+        self.size = self._checkSize(path)
         self.image = Image.open(path)
         self.path = path 
         pass
@@ -32,72 +37,53 @@ class Imagee():
         """
         Optimaze method for image optimization
         """
+        if self.image is None:
+            sys.exit('Any image not read for optimization. Use .read() method to select file, then optimize it!')
+        self.quality = quality
         self.image.save(
                         self.optimized_image, 
                         self.format, 
                         optimize=True, 
                         quality=self.quality)
-        file_size_after = self.optimized_image.getbuffer().nbytes # get image size after optimizing
-        self.optimization_rate = round((self.size-file_size_after)/float(self.size), 2)
+        self.optimized_size = self.optimized_image.getbuffer().nbytes # get image size after optimizing
+        self.optimization_rate = round((self.size-self.optimized_size)/float(self.size), 2)
         pass
 
     def save(self, path):
         """Save image on path"""
-        # self.optimized_image.save(buffer, file_type, optimize=True, quality=quality)
-        pass
-
-    def getBase64():
-        """Return image in base64 format"""
-        pass
-
-def optimize(inputPath, outputPath, quality=85):
-    """
-    Optimaze method for image optimizing
-    params:
-    - inputPath: input image path
-    - outputPath: output image path
-    - quality: quality of image from 0 to 100 (default 85)
-    """
-    
-    # validating path
-    _validateImage(inputPath)
-    _validateImage(outputPath)
-
-    try:
+        if self.optimized_size is None:
+            sys.exit('Any image for saving. Use .read() method to select file, then optimize it!')
+        image = Image.open(BytesIO(self.optimized_image.getbuffer()))
+        image.save(path)
+        # self.optimized_image.save(path, self.format)
         
-        file_size_before = _checkSize(inputPath) # get image size before optimizing
+        pass
 
-        image = Image.open(inputPath) 
-        image.save(outputPath, "JPEG", optimize=True, quality=quality)
+    def getBase64(self):
+        """Return image in base64 format"""
+        if self.optimized_size is None:
+            sys.exit('Any image not optimized. Use .read() method to select file, then optimize it!')
+        return "data:image/"+self.format+";base64," + base64.b64encode(self.optimized_image.getvalue()).decode("utf-8")
+        
+    def _validateImage(self, path):
+        """
+        Local method to validating image
+        - path: image path
+        """
 
-        file_size_after = _checkSize(outputPath) # get image size after optimizing
-        optimization_rate = round((file_size_before-file_size_after)/float(file_size_before)*100, 2)
-        print(f"Image optimized {optimization_rate}%")
-
-    except Exception:
-        sys.exit("Error on optimization process!")
-
-def _checkSize(path):
-    """
-    Local method for checking file size
-    """
-    return os.stat(path).st_size
-    
-
-
-def _validateImage(path):
-    """
-    Local method to validating image
-    - path: image path
-    """
-
-    SUPPORTED_FORMATS = ['.jpg', '.png'] # other formats not tested
-
-    if os.path.exists(path):
-        _, file_extension = os.path.splitext(path)
-        if file_extension in SUPPORTED_FORMATS:
-            return file_extension
+        if os.path.exists(path):
+            _, file_extension = os.path.splitext(path)
+            file_extension = file_extension[1:]
+            if file_extension in self.SUPPORTED_FORMATS.keys():
+                return self.SUPPORTED_FORMATS[file_extension]
+            else:
+                sys.exit(f'Format {file_extension} not supported! Use {self.SUPPORTED_FORMATS}')
         else:
-            sys.exit(f'Format {file_extension} not supported! Use {SUPPORTED_FORMATS}')
-    else:
-        sys.exit(f'File not exist in {path}')
+            sys.exit(f'File not exist in {path}')
+
+    def _checkSize(self, path):
+        """
+        Local method for checking file size
+        """
+        return os.stat(path).st_size
+

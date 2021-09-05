@@ -7,7 +7,7 @@ def readme():
 
 
 setuptools.setup(name='imagee',
-      version='0.1',
+      version='0.1.1',
       description='Tool for image optimization',
       long_description=readme(),
       classifiers=[
@@ -21,7 +21,9 @@ setuptools.setup(name='imagee',
       author='dev-muhammad',
       author_email='iam.markjobs@gmail.com',
       license='MIT',
+      install_requires=[
+          "Pillow==8.3.1"
+      ],
       package_dir={"": "src"},
       packages=setuptools.find_packages(where="src"),
-      include_package_data=True,
       zip_safe=False)

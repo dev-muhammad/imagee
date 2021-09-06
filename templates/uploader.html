@@ -18,11 +18,11 @@
                 </div>
                 <nav class="header-nav">
                     <ul id="menu" class="menu pa-0">
+                        <a href="#optimizer">
+                            <li class="menu-item">Optmizer</li>
+                        </a>
                         <a href="#about">
                             <li class="menu-item">About</li>
-                        </a>
-                        <a href="#components">
-                            <li class="menu-item">Components</li>
                         </a>
                         <a href="#author">
                             <li class="menu-item">Author</li>
@@ -43,28 +43,17 @@
         <article class="container pa-5 full-height">
             <div class="item text-item pl-5">
                 <h2 class="title mb-1">Imagee</h2>
-                <p class="subtitle">Yet another framework to build landing pages faster with minimalistic design. With pure HTML and CSS, a bit JS without any third party libraries</p>
+                <p class="subtitle">Optimize the image without loss of quality. <br/>Size optimization up to 70%</p>
                 <br>
-                <a href="#about" class="button mt-5">More info</a>
+                <a href="#optimizer" class="button mt-5">Optmize image</a>
             </div>
             <div class="item image-item">
-                <img class="image"  src="{{ url_for('static', filename='img/desktop-mockup.png') }}" alt="">
+                <img class="image" style="width:100%"  src="{{ url_for('static', filename='img/optimized.png') }}" alt="">
             </div>
         </article>
-        <!-- About section -->
-        <article id="about" class="container pa-7 ma-0 reverse-mobile" style="background-color: #fdb920;">
-            <div class="item image-item">
-                <img class="image"  src="{{ url_for('static', filename='img/mobile-mockup.png') }}" alt="">
-            </div>
-            <div class="item text-item pl-5">
-                <h2 class="title mb-1">About Imagee</h2>
-                <p class="subtitle">There are many web frameworks on the net, but every new idea has a chance to come true. This framework is built to create landing pages using pure HTML, CSS, JS without any third party libraries. The framework is published under the <a href="https://github.com/dev-muhammad/moderna/blob/main/LICENSE" target="_blank" style="color:#fff">MIT license</a> and it's free to use.</p>
-            </div>
-        </article>
-        <main class="mt-5">
-
-            <!-- Cards -->
-            <article class="pa-5 ">
+        <main>
+            <!-- Optmizer -->
+            <article id="optimizer" class="pa-5">
                 <div class="content-center text-center">
                     <h2 class="title">Optimazer</h2>
                     <p class="subtitle">Upload your image to optimize</p>
@@ -104,6 +93,18 @@
                 </div>
                 <div class="content-center text-center">
                     <label for="file" id="reset" class="button reset">Upload New</label>
+                </div>
+            </article>
+
+            <!-- About section -->
+            <article id="about" class="container pa-7 ma-0 reverse-mobile" style="background-color: #fdb920;">
+                <div class="item image-item">
+                    <img class="image"  src="http://cdn.onlinewebfonts.com/svg/download_302557.png" alt="">
+                    <!-- <img class="image"  src="{{ url_for('static', filename='img/image-icon.png') }}" alt=""> -->
+                </div>
+                <div class="item text-item pl-5">
+                    <h2 class="title mb-1">About Imagee</h2>
+                    <p class="subtitle">There are many web frameworks on the net, but every new idea has a chance to come true. This framework is built to create landing pages using pure HTML, CSS, JS without any third party libraries. The framework is published under the <a href="https://github.com/dev-muhammad/moderna/blob/main/LICENSE" target="_blank" style="color:#fff">MIT license</a> and it's free to use.</p>
                 </div>
             </article>
 
